@@ -1,3 +1,4 @@
+// @ts-check
 const { join } = require("node:path");
 
 const prefix = "/ahqstorebot";
