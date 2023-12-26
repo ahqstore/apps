@@ -4,5 +4,5 @@
  * @param {{ payload: { body: string }, issue: { id: number } }} ctx
  */
 module.exports = (github, ctx) => {
-  console.log(ctx.payload.body, ctx.issue.id);
+  console.log(ctx, ctx.payload.body, ctx.issue.id);
 };
