@@ -5,16 +5,17 @@ const prefix = "/ahqstorebot";
 /**
  * Handle
  * @param {import("@octokit/rest").Octokit} github
- * @param {{ payload: { comment: {body: string }, issue: { id: number, labels: {name: string}[] } }}} ctx
+ * @param {{ payload: { comment: {body: string }, issue: { number: number, id: number, labels: {name: string}[] } }}} ctx
  */
 module.exports = (github, ctx) => {
   const comment = ctx.payload.comment.body;
   const issueId = ctx.payload.issue.id;
+  const issueNumber = ctx.payload.issue.number;
   const labels = ctx.payload.issue.labels;
   const manifestPath = join(__dirname, "..", "..", "manifests");
 
   const base = {
-    issue_number: issueId,
+    issue_number: issueNumber,
     owner: "ahqstore",
     repo: "apps",
   };
