@@ -1,0 +1,26 @@
+name: AHQ Store Issues Bot
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  bot:
+    name: AHQ Store Bot Auto Response
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup NodeJS 21
+        uses: actions/setup-node@v4
+        with:
+          node-version: 21
+
+      - name: Run
+        uses: actions/github-script@v7
+        with:
+          script: |
+            require("./events/issue_create/index.js")(github, context)
