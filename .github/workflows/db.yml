@@ -23,7 +23,7 @@ jobs:
       - name: Run code
         run: cargo run --no-default-features --features parse
         env:
-          CI: false
+          RUSTFLAGS: -Awarnings
 
       - name: Push to GitHub
         uses: EndBug/add-and-commit@v9
