@@ -1,0 +1,29 @@
+name: Database Refresh
+
+permissions: write-all
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 0 * * *
+
+jobs:
+  index:
+    name: Parse Database Entries
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+
+      - name: Run code
+        run: cargo run --no-default-features --features parse
+
+      - name: Push to GitHub
+        uses: EndBug/add-and-commit@v9
+        with:
+          author_name: AHQ Store Bot
+          message: Refresh Entries
