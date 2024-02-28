@@ -3,6 +3,7 @@ name: Database Refresh
 permissions: write-all
 
 on:
+  push:
   workflow_dispatch:
   schedule:
     - cron: 0 0 * * *
@@ -21,6 +22,8 @@ jobs:
 
       - name: Run code
         run: cargo run --no-default-features --features parse
+        env:
+          CI: false
 
       - name: Push to GitHub
         uses: EndBug/add-and-commit@v9
