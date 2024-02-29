@@ -15,3 +15,4 @@ serde_json = "1.0.114"
 default = ["gen"]
 gen = []
 parse = []
+load_bytes = []

@@ -1,8 +1,10 @@
 use ahqstore_types::AHQStoreApplication;
-use inquire::{Confirm, Text};
+use inquire::Confirm;
 use serde_json::from_str;
 use std::fs;
 
+//#[cfg(feature = "load_bytes")]
+mod load;
 #[cfg(feature = "parse")]
 mod parser;
 mod types;
@@ -17,10 +19,10 @@ macro_rules! ask {
         println!("");
     };
 
-    ($val:ident: String, $($x:tt)*) => {
-        let $val = Text::new($($x)*).prompt().unwrap();
-        println!("");
-    }
+    // ($val:ident: String, $($x:tt)*) => {
+    //     let $val = Text::new($($x)*).prompt().unwrap();
+    //     println!("");
+    // }
 }
 
 macro_rules! pan {
@@ -36,6 +38,9 @@ fn main() {
 
   #[cfg(feature = "gen")]
   run();
+
+  #[cfg(feature = "load_bytes")]
+  load::run();
 }
 
 fn run() {
