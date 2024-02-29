@@ -40,7 +40,9 @@ ${out}
 ${err}
 ${stderr}`;
 
-          await github.issues.createComment({
+          console.log(body);
+
+          await github.rest.issues.createComment({
             body,
             owner,
             repo,
@@ -49,6 +51,12 @@ ${stderr}`;
         }
       );
     } else if (cmd == "remove") {
+      await github.rest.issues.createComment({
+        body: "Under Work",
+        owner,
+        repo,
+        issue_number: issue,
+      });
     }
   }
 };
