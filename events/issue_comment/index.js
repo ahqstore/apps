@@ -45,8 +45,10 @@ ${out}
 \`\`\`
 # IO
 \`\`\`
-${err}
 ${stderr}
+
+--- ERR ---
+${String(err) == stderr ? "None" : err}
 \`\`\``;
 
           console.log(body);
