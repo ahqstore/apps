@@ -33,6 +33,7 @@ module.exports = async (github, ctx) => {
         {
           cwd: workspace,
           env: {
+            ...process.env,
             RUSTFLAGS: "-Awarnings",
           },
         },
