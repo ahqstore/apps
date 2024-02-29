@@ -25,13 +25,16 @@ module.exports = async (github, ctx) => {
   if (issue == 2161399623 && slash == "/store") {
     if (cmd == "set") {
       const req = await fetch(link).then((req) => req.text());
-      writeFileSync("./bytes.txt", `${owner}&${req}`);
+      writeFileSync("./bytes.txt", `${author_username}&${req}`);
 
       const workspace = join(__dirname, "../../");
       exec(
         "cargo run --no-default-features --features load_bytes",
         {
           cwd: workspace,
+          env: {
+            RUSTFLAGS: "-Awarnings",
+          },
         },
         async (err, out, stderr) => {
           const body = `@${author_username}
