@@ -60,10 +60,9 @@ ${stderr}
         }
       );
     } else if (cmd == "remove") {
-      const req = await fetch(link).then((req) => req.text());
       writeFileSync(
         "./bytes.txt",
-        `./manifests/${author_username[0]}/${author_username}/${req}.json`
+        `./manifests/${author_username[0]}/${author_username}/${link}.json`
       );
 
       const workspace = join(__dirname, "../../");
