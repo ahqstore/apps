@@ -21,7 +21,7 @@ module.exports = async (github, ctx) => {
   const owner = "ahqstore";
   const repo = "apps";
 
-  if (issue == 3 && slash == "/store") {
+  if (issue == 2161399623 && slash == "/store") {
     if (cmd == "set") {
       const req = await fetch(link).then((req) => req.text());
       writeFileSync("./bytes.txt", `${owner}&${req}`);
