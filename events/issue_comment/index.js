@@ -6,11 +6,12 @@ const { join } = require("path");
 /**
  * Handle
  * @param {import("@octokit/rest").Octokit} github
- * @param {{ payload: { comment: { id: number, body: string, user: { login: string } }, issue: { number: number, id: number, labels: {name: string}[] } }}} ctx
+ * @param {{ payload: { comment: { number: number, id: number, body: string, user: { login: string } }, issue: { number: number, id: number, labels: {name: string}[] } }}} ctx
  */
 module.exports = async (github, ctx) => {
   console.log(JSON.stringify(ctx, null, 4));
   const issue = ctx.payload.issue.id;
+  const issue_number = ctx.payload.issue.number;
 
   const author_username = ctx.payload.comment.user.login;
 
@@ -46,7 +47,7 @@ ${stderr}`;
             body,
             owner,
             repo,
-            issue_number: issue,
+            issue_number,
           });
         }
       );
@@ -55,7 +56,7 @@ ${stderr}`;
         body: "Under Work",
         owner,
         repo,
-        issue_number: issue,
+        issue_number,
       });
     }
   }
