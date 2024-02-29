@@ -18,8 +18,24 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+
+      - name: Setup NodeJS
+        uses: actions/setup-node@v4
+
+      - name: Install deps
+        run: npm i .
+        working-directory: events
+
       - name: Run
         uses: actions/github-script@v7
         with:
           script: |
             require("./events/issue_comment/index.js")(github, context)
+
+      - name: Push to GitHub
+        uses: EndBug/add-and-commit@v9
+        with:
+          author_name: AHQ Store Bot
+          message: Refresh Entries
