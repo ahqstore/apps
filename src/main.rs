@@ -3,10 +3,12 @@ use inquire::Confirm;
 use serde_json::from_str;
 use std::fs;
 
-//#[cfg(feature = "load_bytes")]
+#[cfg(feature = "load_bytes")]
 mod load;
 #[cfg(feature = "parse")]
 mod parser;
+#[cfg(feature = "remove_manifest")]
+mod remove;
 mod types;
 
 #[cfg(feature = "parse")]
@@ -41,6 +43,9 @@ fn main() {
 
   #[cfg(feature = "load_bytes")]
   load::run();
+
+  #[cfg(feature = "remove_manifest")]
+  remove::remove_manifest();
 }
 
 fn run() {

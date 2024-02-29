@@ -30,4 +30,6 @@ pub fn run() {
     format!("./manifests/{}/{}/{}.json", &ltr, &author, &app.appId),
     app_txt,
   );
+
+  println!("Successful");
 }

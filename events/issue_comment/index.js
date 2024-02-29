@@ -39,11 +39,15 @@ module.exports = async (github, ctx) => {
         },
         async (err, out, stderr) => {
           const body = `@${author_username}
-# Output
+# Console
+\`\`\`
 ${out}
-# Error
+\`\`\`
+# IO
+\`\`\`
 ${err}
-${stderr}`;
+${stderr}
+\`\`\``;
 
           console.log(body);
 
@@ -56,12 +60,44 @@ ${stderr}`;
         }
       );
     } else if (cmd == "remove") {
-      await github.rest.issues.createComment({
-        body: "Under Work",
-        owner,
-        repo,
-        issue_number,
-      });
+      const req = await fetch(link).then((req) => req.text());
+      writeFileSync(
+        "./bytes.txt",
+        `./manifests/${author_username[0]}/${author_username}/${req}.json`
+      );
+
+      const workspace = join(__dirname, "../../");
+      exec(
+        "cargo run --no-default-features --features remove_manifest",
+        {
+          cwd: workspace,
+          env: {
+            ...process.env,
+            RUSTFLAGS: "-Awarnings",
+          },
+        },
+        async (err, out, stderr) => {
+          const body = `@${author_username}
+# Console
+\`\`\`
+${out || "No Output"}
+\`\`\`
+# IO
+\`\`\`
+${err || "No Error"}
+${stderr || "No StdErr Terminal"}
+\`\`\``;
+
+          console.log(body);
+
+          await github.rest.issues.createComment({
+            body,
+            owner,
+            repo,
+            issue_number,
+          });
+        }
+      );
     }
   }
 };
