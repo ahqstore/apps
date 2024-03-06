@@ -38,9 +38,6 @@ fn main() {
   #[cfg(feature = "parse")]
   parser();
 
-  #[cfg(feature = "gen")]
-  run();
-
   #[cfg(feature = "load_bytes")]
   load::run();
 
@@ -48,27 +45,21 @@ fn main() {
   remove::remove_manifest();
 }
 
-fn run() {
-  let _ = fs::create_dir_all("./request");
-  let _ = fs::write("./request/app.json", "{}");
+// fn run() {
+//   let _ = fs::create_dir_all("./request");
+//   let _ = fs::write("./request/app.json", "{}");
 
-  ask!(val: bool, "Fill ./request/app.json with the contents of your app manifest");
+//   ask!(val: bool, "Fill ./request/app.json with the contents of your app manifest");
 
-  if !val {
-    pan!("You write write \"Y\"");
-  }
+//   if !val {
+//     pan!("You write write \"Y\"");
+//   }
 
-  let store: AHQStoreApplication =
-    from_str(&fs::read_to_string("./request/app.json").unwrap()).unwrap();
+//   let store: AHQStoreApplication =
+//     from_str(&fs::read_to_string("./request/app.json").unwrap()).unwrap();
 
-  let bytes = Data(store).to_bytes();
+//   let bytes = Data(store).to_bytes();
 
-  fs::write("./bytes.txt", &bytes).unwrap();
-  fs::remove_dir_all("./request").unwrap();
-}
-
-fn gen_appid() -> String {
-  let mut string = String::new();
-
-  string
-}
+//   fs::write("./bytes.txt", &bytes).unwrap();
+//   fs::remove_dir_all("./request").unwrap();
+// }
