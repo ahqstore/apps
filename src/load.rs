@@ -27,10 +27,6 @@ pub fn run() {
   let app_txt = to_string_pretty(&app).unwrap();
   let author = &app.repo.author;
 
-  if &gh_author != &author {
-    panic!("Author Mismatch");
-  }
-
   let client = Client::new();
   let val = format!(
     "https://ahqstore-server.onrender.com/users/{}",
