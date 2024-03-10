@@ -1,5 +1,5 @@
 use ahqstore_types::AHQStoreApplication;
-use serde_json::{from_str, to_string_pretty};
+use serde_json::{from_str, to_string};
 use std::{
   fs::{self, File},
   io::Write,
@@ -75,7 +75,7 @@ impl Map {
 
     let _ = fs::write(
       format!("./db/apps/{}.json", app.appId),
-      to_string_pretty(&app).unwrap(),
+      to_string(&app).unwrap(),
     );
   }
 
