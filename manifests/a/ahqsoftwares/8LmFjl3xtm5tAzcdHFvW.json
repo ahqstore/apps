@@ -5,7 +5,7 @@
   "authorId": "9MXn6dqO0qaUiqYDiaPoV5k3owd2",
   "downloadUrls": {
     "1": {
-      "installerType": "WindowsUWPMsix",
+      "installerType": "WindowsInstallerMsi",
       "url": "https://github.com/ahqsoftwares/tauri-ahq-store/releases/download/1.3.5/AHQ.Store_1.3.5_x64_en-US.msi"
     }
   },
