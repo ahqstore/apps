@@ -10,6 +10,7 @@
     }
   },
   "install": {
+    "installType": "Computer",
     "win32": {
       "assetId": 1,
       "exec": null,
