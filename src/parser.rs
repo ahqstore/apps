@@ -58,10 +58,14 @@ impl Map {
     if self.entries >= 100_000 {
       self.new_file();
     }
+    println!("{}", self.entries);
     if self.entries > 0 {
       let _ = self.c_file.write(b",");
       let _ = self.search.write(b",");
     }
+
+    self.entries += 1;
+
     let _ = self
       .c_file
       .write(format!("\"{}\":\"{}\"", app.appDisplayName, app.appId).as_bytes());
