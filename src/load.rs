@@ -8,7 +8,7 @@ use serde_json::{from_str, to_string_pretty};
 
 use crate::Data;
 
-#[derive(Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 struct AccData {
   pub linked_acc: Vec<String>,
 }
@@ -35,7 +35,7 @@ pub fn run() {
 
   let val: AccData = client.get(&val).send().unwrap().json().unwrap();
 
-  if val.linked_acc.contains(&gh_author.into()) {
+  if !val.linked_acc.contains(&gh_author.into()) {
     panic!("Account not linked!");
   }
 
