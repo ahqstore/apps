@@ -4,19 +4,19 @@
   "appDisplayName": "AHQ Store Electron",
   "authorId": "1",
   "downloadUrls": {
-    "2": {
-      "installerType": "LinuxAppImage",
-      "url": "https://github.com/ahqstore/ahqstore-electron-template/releases/download/v0.2.5/Electron-Test-App-Linux-0.2.5.AppImage"
-    },
     "1": {
       "installerType": "WindowsZip",
-      "url": "https://github.com/ahqstore/ahqstore-electron-template/releases/download/v0.2.5/Electron-Test-App-Windows-0.2.5-Setup.zip"
+      "url": "https://github.com/ahqstore/ahqstore-electron-template/releases/download/v0.2.6/Electron-Test-App-Windows-0.2.6-Setup.zip"
+    },
+    "2": {
+      "installerType": "LinuxAppImage",
+      "url": "https://github.com/ahqstore/ahqstore-electron-template/releases/download/v0.2.6/Electron-Test-App-Linux-0.2.6.AppImage"
     }
   },
   "install": {
     "win32": {
       "assetId": 1,
-      "exec": null,
+      "exec": "Electron Test App.exe",
       "installerArgs": [],
       "deps": []
     },
@@ -33,5 +33,5 @@
     "author": "ahqstore",
     "repo": "ahqstore-electron-template"
   },
-  "version": "[211,43,35,65,3,165,67,114,91,80,104,115,71,239,237,230,37,30,200,185,239,193,65,33,26,115,28,216,246,141,169,215]"
+  "version": "[142,115,97,251,156,7,131,173,240,1,236,79,92,23,178,240,77,90,220,170,129,181,181,39,208,159,17,214,228,21,77,15]"
 }
