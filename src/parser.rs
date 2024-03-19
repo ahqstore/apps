@@ -17,6 +17,7 @@ impl Map {
     let _ = fs::create_dir_all("./db/map");
     let _ = fs::create_dir_all("./db/search");
     let _ = fs::create_dir_all("./db/apps");
+    let _ = fs::create_dir_all("./db/dev");
 
     let mut file = File::create("./db/map/1.json").unwrap();
     let _ = file.write(b"{");
@@ -54,6 +55,14 @@ impl Map {
     self.search = search;
   }
 
+  fn add_author(&mut self, author: &str, app_id: &str) {
+    let file = format!("./db/dev/{}", author);
+    let mut val = fs::read_to_string(&file).unwrap_or("".to_string());
+    val.push_str(&format!("{}\n", &app_id));
+
+    let _ = fs::write(&file, val);
+  }
+
   fn add(&mut self, app: AHQStoreApplication) {
     if self.entries >= 100_000 {
       self.new_file();
@@ -64,6 +73,7 @@ impl Map {
       let _ = self.search.write(b",");
     }
 
+    self.add_author(&app.authorId, &app.appId);
     self.entries += 1;
 
     let _ = self
