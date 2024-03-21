@@ -33,6 +33,8 @@ jobs:
         with:
           script: |
             require("./events/issue_comment/index.js")(github, context)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Push to GitHub
         uses: EndBug/add-and-commit@v9

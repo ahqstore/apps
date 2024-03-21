@@ -8,6 +8,8 @@ use serde_json::{from_str, to_string_pretty};
 
 use crate::Data;
 
+mod gh;
+
 #[derive(Debug, Serialize, Deserialize)]
 struct AccData {
   pub linked_acc: Vec<String>,
@@ -37,6 +39,12 @@ pub fn run() {
 
   if !val.linked_acc.contains(&gh_author.into()) {
     panic!("Account not linked!");
+  }
+
+  if !val.linked_acc.contains(&app.repo.author) {
+    if !gh::has_org_members(&app.repo.author, &gh_author) {
+      panic!("Author not in linked/not a member of org!");
+    }
   }
 
   no_duped_appid(&app);
