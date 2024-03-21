@@ -47,6 +47,12 @@ pub fn run() {
     }
   }
 
+  if let Some(_) = app.source {
+    if &app.authorId != "1" {
+      panic!("Source parameter is not allowed!");
+    }
+  }
+
   no_duped_appid(&app);
 
   let ltr = author.split_at(1).0;

@@ -48,7 +48,7 @@ ${out}
 ${stderr}
 
 --- ERR ---
-${String(err) == stderr ? "None" : err}
+${String(err) == String(stderr) ? "None" : err}
 \`\`\``;
 
           console.log(body);
