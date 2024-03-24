@@ -1,0 +1,22 @@
+name: Update schema in case of update
+
+on:
+  push:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    name: Remake files
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Rust
+        run: rustup install stable
+
+      - name: Run
+        run: cargo run --no-default-features
