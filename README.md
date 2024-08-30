@@ -38,6 +38,6 @@ Go to https://github.com/ahqstore/apps/issues/3 and use the bot available there
 
 ```json
 {
-  "name": string,
+  "name": "string"
 }
 ```
