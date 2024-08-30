@@ -1,5 +1,5 @@
 use ahqstore_types::AHQStoreApplication;
-use serde_json::{from_str, to_string};
+use serde_json::from_str;
 use std::{
   fs::{self, File},
   io::Write,
@@ -18,6 +18,7 @@ impl Map {
     let _ = fs::create_dir_all("./db/search");
     let _ = fs::create_dir_all("./db/apps");
     let _ = fs::create_dir_all("./db/dev");
+    let _ = fs::create_dir_all("./db/res");
 
     let mut file = File::create("./db/map/1.json").unwrap();
     let _ = file.write(b"{");
@@ -87,10 +88,19 @@ impl Map {
       .as_bytes(),
     );
 
+    let (app_str, res) = app.export();
+
     let _ = fs::write(
-      format!("./db/apps/{}.json", app.appId),
-      to_string(&app).unwrap(),
+      format!("./db/apps/{}.json", &app.appId),
+      app_str,
     );
+
+    for (id, bytes) in res {
+      let _ = fs::write(
+        format!("./db/res/{}/{}", &app.appId, id),
+        bytes
+      );
+    }
   }
 
   fn finish(mut self) {

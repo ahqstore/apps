@@ -1,4 +1,4 @@
-name: Update schema in case of update
+name: Update schema in case of update (aka push)
 
 on:
   push:

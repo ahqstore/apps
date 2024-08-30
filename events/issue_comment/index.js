@@ -1,6 +1,6 @@
 //@ts-check
 const { exec } = require("child_process");
-const { writeFileSync } = require("fs");
+const { writeFileSync, readFileSync, rmSync, existsSync } = require("fs");
 const { join } = require("path");
 
 /**
@@ -9,7 +9,6 @@ const { join } = require("path");
  * @param {{ payload: { comment: { number: number, id: number, body: string, user: { login: string } }, issue: { number: number, id: number, labels: {name: string}[] } }}} ctx
  */
 module.exports = async (github, ctx) => {
-  console.log(JSON.stringify(ctx, null, 4));
   const issue = ctx.payload.issue.id;
   const issue_number = ctx.payload.issue.number;
 
@@ -22,14 +21,19 @@ module.exports = async (github, ctx) => {
   const owner = "ahqstore";
   const repo = "apps";
 
-  if (issue == 2161399623 && slash == "/store") {
+  if (issue != 2161399623) {
+    return;
+  }
+
+  if (slash == "/store") {
     if (cmd == "set") {
       const req = await fetch(link).then((req) => req.text());
-      writeFileSync("./bytes.txt", `${author_username}&${req}`);
+      const bytes = new TextEncoder().encode(req);
+      writeFileSync("./bytes.txt", `${author_username}&${bytes}`);
 
       const workspace = join(__dirname, "../../");
       exec(
-        "cargo run --no-default-features --features load_bytes",
+        "cargo run --features load_bytes",
         {
           cwd: workspace,
           env: {
@@ -43,7 +47,7 @@ module.exports = async (github, ctx) => {
 \`\`\`
 ${out}
 \`\`\`
-# IO
+# IO ERR
 \`\`\`
 ${stderr}
 
@@ -59,6 +63,8 @@ ${String(err) == String(stderr) ? "None" : err}
             repo,
             issue_number,
           });
+
+          return out.includes("Successful");
         }
       );
     } else if (cmd == "remove") {
@@ -69,7 +75,7 @@ ${String(err) == String(stderr) ? "None" : err}
 
       const workspace = join(__dirname, "../../");
       exec(
-        "cargo run --no-default-features --features remove_manifest",
+        "cargo run --features remove_manifest",
         {
           cwd: workspace,
           env: {
@@ -97,8 +103,46 @@ ${stderr || "No StdErr Terminal"}
             repo,
             issue_number,
           });
+
+          return out.includes("Successful");
         }
       );
+    }
+  } else if (slash == "/account") {
+    if (cmd == "create" || cmd == "mutate") {
+      const path = join(__dirname, `../../users/${author_username}.json`);
+
+      if (existsSync(path) && cmd == "create") {
+        await github.rest.issues.createComment({
+          body: "User already exists, use /account mutate <path to acc file>",
+          owner,
+          repo,
+          issue_number,
+        });
+        return;
+      }
+
+      const acc = await fetch(link).then((s) => s.json());
+
+      acc.github = author_username;
+      acc.avatar_url = null;
+
+      writeFileSync(path, JSON.stringify(acc, null, 2));
+    } else if (cmd == "remove") {
+      const user = link;
+
+      if (user != author_username) {
+        await github.rest.issues.createComment({
+          body: "You can only remove your own account",
+          owner,
+          repo,
+          issue_number,
+        });
+        return;
+      }
+      const path = join(__dirname, `../../users/${author_username}.json`);
+
+      rmSync(path);
     }
   }
 };

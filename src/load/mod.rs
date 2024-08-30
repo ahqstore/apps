@@ -1,19 +1,11 @@
-use reqwest::blocking::Client;
 use std::fs;
 
 use ahqstore_types::AHQStoreApplication;
-
-use serde::{Deserialize, Serialize};
 use serde_json::{from_str, to_string_pretty};
 
+use super::shared::{gh::has_org_members, user};
+
 use crate::Data;
-
-mod gh;
-
-#[derive(Debug, Serialize, Deserialize)]
-struct AccData {
-  pub linked_acc: Vec<String>,
-}
 
 pub fn run() {
   let val = fs::read_to_string("./bytes.txt").unwrap();
@@ -26,31 +18,23 @@ pub fn run() {
 
   let app = val.0;
 
+  let resp = app.validate().unwrap_or_else(|x| x);
+
+  println!("{}", &resp);
+
+  if resp.contains("❌") {
+    panic!("App Validation Failed!");
+  }
+
   let app_txt = to_string_pretty(&app).unwrap();
   let author = &app.repo.author;
 
-  let client = Client::new();
-  let val = format!(
-    "https://ahqstore-server.onrender.com/users/{}",
-    &app.authorId
-  );
+  let Some(user) = user::get_author(author) else {
+    panic!("Author not found!");
+  };
 
-  let val: AccData = client.get(&val).send().unwrap().json().unwrap();
-
-  if !val.linked_acc.contains(&gh_author.into()) {
-    panic!("Account not linked!");
-  }
-
-  if !val.linked_acc.contains(&app.repo.author) {
-    if !gh::has_org_members(&app.repo.author, &gh_author) {
-      panic!("Author not in linked/not a member of org!");
-    }
-  }
-
-  if let Some(_) = app.source {
-    if &app.authorId != "1" {
-      panic!("Source parameter is not allowed!");
-    }
+  if user.github != gh_author && has_org_members(gh_author, &user.github) {
+    panic!("Author is not the same as GitHub repo author or GitHub org public member");
   }
 
   no_duped_appid(&app);

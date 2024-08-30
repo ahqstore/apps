@@ -4,6 +4,10 @@ on:
   issue_comment:
     types: [created]
 
+concurrency:
+  cancel-in-progress: false
+  group: db_updater_bot
+
 permissions:
   contents: write
   issues: write
@@ -32,7 +36,9 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            require("./events/issue_comment/index.js")(github, context)
+            const shallRunUpdate = require("./events/issue_comment/index.js")(github, context)
+
+            return JSON.stringify(shallRunUpdate == true)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

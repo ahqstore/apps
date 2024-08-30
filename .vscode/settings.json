@@ -1,5 +1,5 @@
 {
   "rust-analyzer.check.features": "all",
-  "rust-analyzer.linkedProjects": [".\\Cargo.toml"],
+  "rust-analyzer.linkedProjects": ["./Cargo.toml"],
   "rust-analyzer.showUnlinkedFileNotification": false
 }

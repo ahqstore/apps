@@ -5,6 +5,8 @@ mod parser;
 mod remove;
 mod types;
 
+pub mod shared;
+
 use parser::*;
 use types::*;
 
