@@ -28,8 +28,8 @@ module.exports = async (github, ctx) => {
   if (slash == "/store") {
     if (cmd == "set") {
       const req = await fetch(link).then((req) => req.text());
-      const bytes = new TextEncoder().encode(req);
-      console.log(bytes);
+      const bytes = JSON.stringify(new TextEncoder().encode(req));
+
       writeFileSync("./bytes.txt", `${author_username}&${bytes}`);
 
       const workspace = join(__dirname, "../../");
