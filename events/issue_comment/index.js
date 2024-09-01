@@ -29,6 +29,7 @@ module.exports = async (github, ctx) => {
     if (cmd == "set") {
       const req = await fetch(link).then((req) => req.text());
       const bytes = new TextEncoder().encode(req);
+      console.log(bytes);
       writeFileSync("./bytes.txt", `${author_username}&${bytes}`);
 
       const workspace = join(__dirname, "../../");
