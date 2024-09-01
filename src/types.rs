@@ -15,8 +15,6 @@ impl Data {
     let val: Vec<u8> = from_str(bytes).unwrap();
     let val = String::from_utf8_lossy(&val);
 
-    println!("{:?}", &val);
-
     Self(from_str(&val).unwrap())
   }
 }
