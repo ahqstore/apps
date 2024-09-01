@@ -13,7 +13,9 @@ impl Data {
 
   pub fn from_bytes(bytes: &str) -> Self {
     let val: Vec<u8> = from_str(bytes).unwrap();
-    let val = String::from_utf8(val).unwrap();
+    let val = String::from_utf8_lossy(&val);
+
+    println!("{:?}", &val);
 
     Self(from_str(&val).unwrap())
   }

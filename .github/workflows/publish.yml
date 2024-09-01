@@ -3,6 +3,10 @@ name: Update schema in case of update (aka push)
 on:
   push:
 
+concurrency:
+  cancel-in-progress: false
+  group: db_updater_bot
+
 permissions:
   contents: write
 

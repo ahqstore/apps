@@ -28,6 +28,7 @@ module.exports = async (github, ctx) => {
   if (slash == "/store") {
     if (cmd == "set") {
       const req = await fetch(link).then((req) => req.text());
+      console.log(req);
       const bytes = new TextEncoder().encode(req);
 
       writeFileSync("./bytes.txt", `${author_username}&[${bytes}]`);
