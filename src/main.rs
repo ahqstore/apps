@@ -8,6 +8,7 @@ mod types;
 pub mod shared;
 
 use parser::*;
+use shared::get_author;
 use types::*;
 
 fn main() {

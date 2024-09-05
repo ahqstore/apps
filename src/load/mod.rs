@@ -32,7 +32,8 @@ pub fn run() {
   let author_id = &app.authorId;
 
   let Some(user) = user::get_author(author_id) else {
-    panic!("Author not found!");
+    println!("❌ Author {} not found!", &author_id);
+    panic!("Author: {} not found!", &author_id);
   };
 
   if user.github != gh_author && has_org_members(gh_author, &user.github) {
