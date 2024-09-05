@@ -95,6 +95,8 @@ impl Map {
       app_str,
     );
 
+    let _ = fs::create_dir_all(format!("./db/res/{}", &app.appId));
+
     for (id, bytes) in res {
       let _ = fs::write(
         format!("./db/res/{}/{}", &app.appId, id),
