@@ -29,7 +29,9 @@ pub fn run() {
   let app_txt = to_string_pretty(&app).unwrap();
   let author = &app.repo.author;
 
-  let Some(user) = user::get_author(author) else {
+  let author_id = &app.authorId;
+
+  let Some(user) = user::get_author(author_id) else {
     panic!("Author not found!");
   };
 
