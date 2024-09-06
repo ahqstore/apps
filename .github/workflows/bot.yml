@@ -47,3 +47,4 @@ jobs:
         with:
           author_name: AHQ Store Bot
           message: Refresh Entries
+          pull: '--rebase'
