@@ -3,12 +3,29 @@
   "appShortcutName": "Tauri (Sample Application)",
   "appDisplayName": "Test Tauri App",
   "authorId": "1",
-  "releaseTagName": "v1.3.0",
-  "downloadUrls": {},
+  "releaseTagName": "v1.3.2",
+  "downloadUrls": {
+    "3": {
+      "installerType": "LinuxAppImage",
+      "asset": "sample-tauri-app_1.3.2_amd64.AppImage",
+      "url": ""
+    },
+    "1": {
+      "installerType": "WindowsInstallerMsi",
+      "asset": "Sample.Tauri.App_1.3.2_x64_en-US.msi",
+      "url": ""
+    }
+  },
   "install": {
-    "win32": null,
+    "win32": {
+      "assetId": 1,
+      "exec": "electron.exe",
+      "installerArgs": []
+    },
     "winarm": null,
-    "linux": null,
+    "linux": {
+      "assetId": 3
+    },
     "linuxArm64": null,
     "linuxArm7": null,
     "android": null
@@ -22,7 +39,7 @@
     "author": "ahqstore",
     "repo": "sample-app"
   },
-  "version": "[19,164,241,82,47,48,252,28,102,10,125,178,27,255,52,13,184,52,29,131,138,233,39,12,35,92,30,73,199,249,173,97]",
+  "version": "[210,120,214,92,46,22,104,22,57,49,183,182,138,149,55,132,50,57,245,41,85,105,118,238,6,250,244,153,63,186,144,173]",
   "site": null,
   "source": null,
   "license_or_tos": null,
