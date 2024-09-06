@@ -3,7 +3,7 @@
   "appShortcutName": "Electron (Sample Application)",
   "appDisplayName": "Test Electron App",
   "authorId": "1",
-  "releaseTagName": "v1.2.6",
+  "releaseTagName": "v1.3.0",
   "downloadUrls": {},
   "install": {
     "win32": null,
@@ -21,7 +21,7 @@
     "author": "ahqstore",
     "repo": "sample-app"
   },
-  "version": "[144,88,192,66,2,197,119,30,10,236,230,90,140,63,147,110,96,41,68,141,130,179,200,239,153,171,169,108,122,70,99,36]",
+  "version": "[106,241,211,16,197,129,115,156,237,89,251,188,47,83,234,3,67,195,141,245,249,76,195,196,127,83,28,45,254,254,71,188]",
   "site": null,
   "source": null,
   "license_or_tos": null,
