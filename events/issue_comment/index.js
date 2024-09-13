@@ -1,6 +1,12 @@
 //@ts-check
+
+// @ts-ignore
 const { exec } = require("child_process");
-const { writeFileSync, readFileSync, rmSync, existsSync } = require("fs");
+
+// @ts-ignore
+const { writeFileSync, rmSync, existsSync } = require("fs");
+
+// @ts-ignore
 const { join } = require("path");
 
 /**
@@ -9,6 +15,11 @@ const { join } = require("path");
  * @param {{ payload: { comment: { number: number, id: number, body: string, user: { login: string } }, issue: { number: number, id: number, labels: {name: string}[] } }}} ctx
  */
 module.exports = async (github, ctx) => {
+  const {
+    // @ts-ignore
+    default: { default: hash },
+  } = await import("@ahqstore/gh_hash");
+
   const issue = ctx.payload.issue.id;
   const issue_number = ctx.payload.issue.number;
 
@@ -32,12 +43,14 @@ module.exports = async (github, ctx) => {
 
       writeFileSync("./bytes.txt", `${author_username}&[${bytes}]`);
 
+      // @ts-ignore
       const workspace = join(__dirname, "../../");
       exec(
         "cargo run --features load_bytes",
         {
           cwd: workspace,
           env: {
+            // @ts-ignore
             ...process.env,
             RUSTFLAGS: "-Awarnings",
           },
@@ -74,12 +87,14 @@ ${String(err) == String(stderr) ? "None" : err}
         `./manifests/${author_username[0]}/${author_username}/${link}.json`
       );
 
+      // @ts-ignore
       const workspace = join(__dirname, "../../");
       exec(
         "cargo run --features remove_manifest",
         {
           cwd: workspace,
           env: {
+            // @ts-ignore
             ...process.env,
             RUSTFLAGS: "-Awarnings",
           },
@@ -111,7 +126,13 @@ ${stderr || "No StdErr Terminal"}
     }
   } else if (slash == "/account") {
     if (cmd == "create" || cmd == "mutate") {
-      const path = join(__dirname, `../../users/${author_username}.json`);
+      const author_hashed_username = hash(author_username);
+
+      const path = join(
+        // @ts-ignore
+        __dirname,
+        `../../users/${author_hashed_username}.json`
+      );
 
       if (existsSync(path) && cmd == "create") {
         await github.rest.issues.createComment({
@@ -132,7 +153,9 @@ ${stderr || "No StdErr Terminal"}
     } else if (cmd == "remove") {
       const user = link;
 
-      if (user != author_username) {
+      const author_hashed_username = hash(author_username);
+
+      if (user != author_hashed_username) {
         await github.rest.issues.createComment({
           body: "You can only remove your own account",
           owner,
@@ -141,7 +164,12 @@ ${stderr || "No StdErr Terminal"}
         });
         return;
       }
-      const path = join(__dirname, `../../users/${author_username}.json`);
+
+      const path = join(
+        // @ts-ignore
+        __dirname,
+        `../../users/${author_hashed_username}.json`
+      );
 
       rmSync(path);
     }

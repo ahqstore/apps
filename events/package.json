@@ -10,6 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@octokit/rest": "^20.0.2"
+    "@ahqstore/gh_hash": "^1.2.0",
+    "@octokit/rest": "^21.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.4"
   }
 }
