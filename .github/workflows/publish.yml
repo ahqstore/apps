@@ -1,6 +1,9 @@
 name: Update schema in case of update (aka push)
 
 on:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 0 * * *
   push:
 
 concurrency:
