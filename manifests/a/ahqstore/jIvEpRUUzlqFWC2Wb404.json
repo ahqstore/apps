@@ -3,6 +3,7 @@
   "appShortcutName": "Tauri (Sample Application)",
   "appDisplayName": "Test Tauri App",
   "authorId": "1",
+  "verified": true,
   "releaseTagName": "v1.3.2",
   "downloadUrls": {
     "3": {

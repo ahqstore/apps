@@ -3,6 +3,7 @@
   "appShortcutName": "Electron (Sample Application)",
   "appDisplayName": "Test Electron App",
   "authorId": "1",
+  "verified": true,
   "releaseTagName": "v1.3.2",
   "downloadUrls": {
     "1": {
