@@ -90,18 +90,12 @@ impl Map {
 
     let (app_str, res) = app.export();
 
-    let _ = fs::write(
-      format!("./db/apps/{}.json", &app.appId),
-      app_str,
-    );
+    let _ = fs::write(format!("./db/apps/{}.json", &app.appId), app_str);
 
     let _ = fs::create_dir_all(format!("./db/res/{}", &app.appId));
 
     for (id, bytes) in res {
-      let _ = fs::write(
-        format!("./db/res/{}/{}", &app.appId, id),
-        bytes
-      );
+      let _ = fs::write(format!("./db/res/{}/{}", &app.appId, id), bytes);
     }
   }
 
