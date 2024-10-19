@@ -20,7 +20,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup Rust
-        run: rustup install stable
+        run: |
+          rustup install stable
+          git pull
 
       - name: Run
         run: cargo run --no-default-features
@@ -32,4 +34,3 @@ jobs:
         with:
           author_name: AHQ Store Bot
           message: Refresh Entries
-          pull: '--rebase'
