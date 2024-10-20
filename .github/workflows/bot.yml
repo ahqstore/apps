@@ -27,9 +27,12 @@ jobs:
       - name: Install deps
         run: npm i .
         working-directory: events
-      
+
       - uses: ahmadnassri/action-workflow-queue@v1
-      
+
+      - name: Pull
+        run: git pull
+
       - name: Run
         uses: actions/github-script@v7
         with:
@@ -39,9 +42,6 @@ jobs:
             return JSON.stringify(shallRunUpdate == true)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Git pull
-        run: git pull
 
       - name: Push to GitHub
         uses: EndBug/add-and-commit@v9
