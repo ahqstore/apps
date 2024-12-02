@@ -3,7 +3,7 @@
     "Multimedia",
     [
       {
-        "winget": "winget_app_VideoLan.VLC",
+        "winget": "winget_app_VideoLAN.VLC",
         "flatpak": "flatpak:org.videolan.VLC"
       }
     ]
